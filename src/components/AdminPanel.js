@@ -18,25 +18,6 @@ const AdminPanel = ({ users, logs, handleEditRole, handleDeleteUser }) => {
         }
     }
 
-  const getLogs = async () => {
-    try {
-      const res = await axios.get('http://localhost:5000/api/getlogs', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      if (res.status === 200) {
-        setLogData(res.data);
-      }
-    } catch (err) {
-         if (err.response && err.response.status === 403) {
-        alert('Access Denied: You do not have permission to view this content.');
-      } else {
-        setError('Something went wrong. Please try again.',err);
-      }
-      
-    }
-  };
 
   const [userAccount,setAccount] = useState([])
 
@@ -63,7 +44,6 @@ const AdminPanel = ({ users, logs, handleEditRole, handleDeleteUser }) => {
   }
 
   useEffect(() => {
-    getLogs();
     getLogin()
   }, []);
 
@@ -104,7 +84,7 @@ const AdminPanel = ({ users, logs, handleEditRole, handleDeleteUser }) => {
         </table>
       </section>
 
-      <section>
+      {/* <section>
         <h2 className="text-2xl font-semibold mb-4">View System Logs</h2>
         <ul className="list-disc pl-6 space-y-2">
           {logData.map((log, i) => (
@@ -115,7 +95,7 @@ const AdminPanel = ({ users, logs, handleEditRole, handleDeleteUser }) => {
             </li>
           ))}
         </ul>
-      </section>
+      </section> */}
     </div>
   );
 };

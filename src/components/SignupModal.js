@@ -8,15 +8,30 @@ const SignupModal = ({ isOpen, onClose }) => {
 
   const [signup, setSignup] = useState({
     email:'',
-    role:'',
+    role:'admin',
     password:''
   })
+  console.log({signup})
+
+  const setLog = async (email,role) => {
+    try{
+        const data = {
+            email:email || '',
+            role: role || '',
+            activity: 'login'
+        }
+        const res = await axios.post('http://localhost:5000/api/addlogs',data)
+    }catch(err){
+        console.log(err)
+    }
+  }
 
   const handleSignup = async (e) => {
     e.preventDefault();
     const res = await axios.post('http://localhost:5000/api/signup',signup)
 
     if(res.status == 200){
+        setLog(signup.email,signup.role)
         onClose();
     }
 
@@ -71,7 +86,7 @@ const SignupModal = ({ isOpen, onClose }) => {
                 role: e.target.value
               }))}
             >
-              <option className='text-gray-700' value="editor">Admin</option>
+              <option className='text-gray-700' value="admin">Admin</option>
               <option className='text-gray-700' value="viewer">Viewer</option>
               <option className='text-gray-700' value="editor">Editor</option>
             </select>

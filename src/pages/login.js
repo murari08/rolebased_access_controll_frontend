@@ -14,6 +14,19 @@ export default function LoginPage() {
   const [error, setError] = useState(null);
   const [showSignup, setShowSignup] = useState(false);
 
+  const setLog = async (email,role) => {
+    try{
+        const data = {
+            email:email || '',
+            role: role || '',
+            activity: 'login'
+        }
+        const res = await axios.post('http://localhost:5000/api/addlogs',data)
+    }catch(err){
+        console.log(err)
+    }
+  }
+
   const handleLogin = async (e) => {
     e.preventDefault();
    const res = await axios.post('http://localhost:5000/api/login', loginData);
@@ -22,6 +35,7 @@ export default function LoginPage() {
     if (res.status == 200){
         localStorage.setItem('email',res.data.email)
         localStorage.setItem('token',res.data.token)
+        setLog(loginData.email,loginData.role)
         router.push('/dashboard')
     } 
     else {setError('Invalid credentials');}

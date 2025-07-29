@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import AdminPanel from "../components/AdminPanel";
 import EditorPanel from "../components/EditorPanel";
 import ViewerPanel from "../components/ViewerPanel";
+import SystemLog from '../components/systemLog'
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -56,12 +57,14 @@ const Dashboard = () => {
         );
       case "logs":
         return (
-          <AdminPanel
-            users={[]}
-            logs={logs}
-            handleEditRole={() => {}}
-            handleDeleteUser={() => {}}
-          />
+            <SystemLog />
+        //   <AdminPanel
+        //     users={[]}
+        //     logs={logs}
+        //     handleEditRole={() => {}}
+        //     handleDeleteUser={() => {}}
+        //   />
+        
         );
       case "content":
         return <EditorPanel />;
